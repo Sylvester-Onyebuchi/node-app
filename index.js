@@ -14,7 +14,7 @@ ConnectDB()
 app.use(cors({
     origin: [
         'http://localhost:4200',
-        'https://mysonap.netlify.app'
+        'https://mysonapp.netlify.app'
     ],
     credentials: true
 }))

@@ -5,7 +5,7 @@ import {ConnectDB} from "./db/DBConnect.js";
 import routes from './routes/routes.js'
 import  dotenv from 'dotenv'
 import  session from 'express-session'
-import MongoStore from "connect-mongo";
+
 dotenv.config()
 
 const app = express()
@@ -13,7 +13,6 @@ const port = process.env.PORT || 3000
 ConnectDB()
 app.use(cors({
     origin: [
-        'http://localhost:4200',
         'https://mysonapp.netlify.app'
     ],
     credentials: true
@@ -21,7 +20,7 @@ app.use(cors({
 app.use(express.json())
 app.use(cookieParser())
 app.use(session({
-    secret: process.env.JWT_SECRET,
+    secret: 'hello from myson',
     resave: false,
     saveUninitialized: false,
     cookie: {

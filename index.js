@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000
 ConnectDB()
 app.use(cors({
     origin: [
-        'https://myapp-front-5c68.onrender.com'
+        'https://mysonapp.netlify.app'
     ],
     credentials: true
 }))

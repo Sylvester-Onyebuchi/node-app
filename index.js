@@ -13,6 +13,7 @@ const port = process.env.PORT || 3000
 ConnectDB()
 app.use(cors({
     origin: [
+        'http://localhost:4200',
         'https://www.sonappp.com',
         'https://sonappp.com'
     ],

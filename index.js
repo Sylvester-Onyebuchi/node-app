@@ -13,9 +13,10 @@ const port = process.env.PORT || 3000
 ConnectDB()
 app.use(cors({
     origin: [
-        'www.sonappp.com',
-        'sonappp.com',
+        'https://www.sonappp.com',
+        'https://sonappp.com'
     ],
+
     credentials: true
 }))
 app.use(express.json())

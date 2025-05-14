@@ -34,12 +34,14 @@ export const deletePost = async (req, res) => {
         }
         const user = await  User.findById(post.postedBy)
 
-        if (user && post.postedBy.toString() === user._id.toString()) {
-            await Post.findByIdAndDelete(req.params.id);
-            return res.status(200).json({ message: "Post deleted successfully" });
-        }
+        if (post.postedBy.toString() !== user._id.toString()) {
+            return res.status(403).json({ message: "Unauthorized: You can only delete your own posts" });
 
-        return res.status(403).json({ message: "Unauthorized: You can only delete your own posts" });
+        }
+        await Post.findByIdAndDelete(req.params.id);
+        return res.status(200).json({ message: "Post deleted successfully" });
+
+
     } catch (err) {
         res.status(500).json({ error: err.message || "Internal server error" });
     }

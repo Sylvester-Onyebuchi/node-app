@@ -56,7 +56,7 @@ export const updatePost = async (req, res) => {
         }
 
 
-        if (!post.postedBy.equals(req._id)) {
+        if (!post.postedBy.equals(req.id)) {
             return res.status(403).json({ message: "Unauthorized: You can only update your own posts" });
 
         }

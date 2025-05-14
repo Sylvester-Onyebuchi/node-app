@@ -32,9 +32,9 @@ export const deletePost = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-        const user = await  User.findById(post.postedBy)
+        // const user = await  User.findById(post.postedBy)
 
-        if (post.postedBy !== user._id) {
+        if (!post.postedBy.equals(req.id)) {
             return res.status(403).json({ message: "Unauthorized: You can only delete your own posts" });
 
         }
@@ -54,9 +54,9 @@ export const updatePost = async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }
-        const user = await  User.findById(post.postedBy)
 
-        if (post.postedBy !== user._id) {
+
+        if (!post.postedBy.equals(req._id)) {
             return res.status(403).json({ message: "Unauthorized: You can only update your own posts" });
 
         }

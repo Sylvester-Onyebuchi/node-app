@@ -88,3 +88,19 @@ export const verifyEmail = async (req, res) => {
     }
 }
 
+// authController.js
+export const getCurrentUser = async (req, res) => {
+    try {
+        const user1 = await User.findById(req.user.id)
+        if (!user1) {
+            return res.status(401).json({ message: "Not authenticated" });
+        }
+
+        const user = await User.findById(req.user.id).select("-password");
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+

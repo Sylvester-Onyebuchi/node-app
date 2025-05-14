@@ -1,5 +1,5 @@
 import express from 'express'
-import {register, logout, login, verifyEmail} from "../controller/userController.js";
+import {register, logout, login, verifyEmail, getCurrentUser} from "../controller/userController.js";
 import {addPost, deletePost, getAllPosts, getPost, updatePost} from "../controller/postController.js";
 import {authenticateUser, verifyToken} from "../auth/generateToken.js";
 import {User} from  "../models/model.js"
@@ -10,10 +10,11 @@ router.post('/addPost',verifyToken, addPost)
 router.post('/login',  login)
 router.post('/logout',  logout)
 router.delete('/delete/:id',verifyToken, deletePost)
-router.put('/update/:id',authenticateUser, updatePost)
+router.put('/update/:id',verifyToken, updatePost)
 router.get('/post/:id', getPost)
 router.post('/register', register)
 router.post('/verify-email', verifyEmail)
+router.get("/user", authenticateUser, getCurrentUser);
 
 
 router.get('/user-info', verifyToken, async (req, res) => {

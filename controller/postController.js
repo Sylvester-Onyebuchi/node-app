@@ -34,7 +34,7 @@ export const deletePost = async (req, res) => {
         }
         const user = await  User.findById(post.postedBy)
 
-        if (post.postedBy.toString() !== user._id.toString()) {
+        if (post.postedBy !== user._id) {
             return res.status(403).json({ message: "Unauthorized: You can only delete your own posts" });
 
         }
@@ -56,16 +56,18 @@ export const updatePost = async (req, res) => {
         }
         const user = await  User.findById(post.postedBy)
 
-        if (user && post.postedBy.toString() === user._id.toString()) {
-            const updatedPost ={
-                title,
-                content,
-            }
-            await  Post.findByIdAndUpdate(req.params.id, updatedPost)
-            return res.status(200).json({ message: "Post updated successfully" });
-        }
+        if (post.postedBy !== user._id) {
+            return res.status(403).json({ message: "Unauthorized: You can only update your own posts" });
 
-        return res.status(403).json({ message: "Unauthorized: You can only update your own posts" });
+        }
+        const updatedPost ={
+            title,
+            content,
+        }
+        await  Post.findByIdAndUpdate(req.params.id, updatedPost)
+        return res.status(200).json({ message: "Post updated successfully" });
+
+
     } catch (err) {
         res.status(500).json({ error: err.message || "Internal server error" });
     }

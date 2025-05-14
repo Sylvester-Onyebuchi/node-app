@@ -21,7 +21,7 @@ const PostSchema = new mongoose.Schema({
     title: String,
     content: String,
     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-})
+}, { timestamps: true });
 
 export const User = mongoose.model("User", UserSchema)
 export const Post = mongoose.model("Post", PostSchema)

@@ -30,3 +30,14 @@ export const verifyToken = (req,res,next) => {
        throw  new Error(`Invalid or expired token:`);
    }
 }
+
+export const authenticateUser = (req,res,next) => {
+    const token = req.cookies.token; // or from headers
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user._id;
+        next();
+    });
+}

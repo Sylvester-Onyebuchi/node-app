@@ -1,6 +1,6 @@
 import express from 'express'
 import {register, logout, login, verifyEmail} from "../controller/userController.js";
-import {addPost, getAllPosts} from "../controller/postController.js";
+import {addPost, deletePost, getAllPosts, getPost, updatePost} from "../controller/postController.js";
 import {verifyToken} from "../auth/generateToken.js";
 import {User} from  "../models/model.js"
 const router = express.Router()
@@ -9,6 +9,9 @@ router.get('/allPosts',verifyToken, getAllPosts)
 router.post('/addPost',verifyToken, addPost)
 router.post('/login',  login)
 router.post('/logout',  logout)
+router.delete('/delete/:id',verifyToken, deletePost)
+router.put('/update/:id',verifyToken, updatePost)
+router.get('/post/:id', getPost)
 router.post('/register', register)
 router.post('/verify-email', verifyEmail)
 
